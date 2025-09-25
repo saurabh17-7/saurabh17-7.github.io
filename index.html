@@ -117,6 +117,14 @@
     .edu-card h3 { color: var(--accent); margin-bottom: 0.5rem; }
     .year { font-size: 0.9rem; color: var(--warning); font-weight: bold; }
 
+    /* Marks toggle */
+    .marks { display: none; margin-top: 10px; font-size: 1rem; color: var(--success); }
+    .toggle-btn {
+      margin-top: 10px; padding: 8px 15px; border: none; border-radius: 20px;
+      background: var(--accent); color: white; cursor: pointer; transition: 0.3s;
+    }
+    .toggle-btn:hover { background: var(--primary); }
+
     .skills-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 1.5rem; margin-top: 2rem;
@@ -230,16 +238,22 @@
         <h3><i class="fas fa-graduation-cap"></i> B.Tech (Electronics & Telecommunication)</h3>
         <p>AISSMS IOIT, Pune</p>
         <span class="year">2022 – Present</span>
+        <button class="toggle-btn" onclick="toggleMarks('btech')">Show Marks</button>
+        <div id="btech" class="marks">Upto 6th Sem: 67.70% / 7.70 GPA</div>
       </div>
       <div class="edu-card">
         <h3><i class="fas fa-university"></i> Higher Secondary (12th)</h3>
         <p>Chh. Shahu Academy, Satara</p>
         <span class="year">2020 – 2022</span>
+        <button class="toggle-btn" onclick="toggleMarks('hsc')">Show Marks</button>
+        <div id="hsc" class="marks">82.83%</div>
       </div>
       <div class="edu-card">
         <h3><i class="fas fa-school"></i> Secondary (10th)</h3>
         <p>Sadhana Vidyalaya, Satara</p>
         <span class="year">2020</span>
+        <button class="toggle-btn" onclick="toggleMarks('ssc')">Show Marks</button>
+        <div id="ssc" class="marks">87.20% </div>
       </div>
     </div>
   </section>
@@ -340,6 +354,15 @@
     }
     function closeModal(id) {
       document.getElementById(id).style.display = "none";
+    }
+
+    function toggleMarks(id) {
+      const el = document.getElementById(id);
+      if (el.style.display === "block") {
+        el.style.display = "none";
+      } else {
+        el.style.display = "block";
+      }
     }
   </script>
 </body>
