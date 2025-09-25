@@ -80,7 +80,16 @@
     @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
 
     .hero h1 { font-size: 3.2rem; margin-bottom: 1rem; font-weight: 800; }
-    .typing-text { font-size: 1.5rem; margin-bottom: 2rem; color: var(--accent); }
+
+    /* Fade animation for roles */
+    .typing-text {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: var(--accent);
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
 
     .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn {
@@ -112,18 +121,18 @@
     .edu-card {
       background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 15px;
       text-align: center; transition: transform 0.3s;
+      position: relative;
     }
     .edu-card:hover { transform: translateY(-10px); }
     .edu-card h3 { color: var(--accent); margin-bottom: 0.5rem; }
     .year { font-size: 0.9rem; color: var(--warning); font-weight: bold; }
-
-    /* Marks toggle */
-    .marks { display: none; margin-top: 10px; font-size: 1rem; color: var(--success); }
-    .toggle-btn {
-      margin-top: 10px; padding: 8px 15px; border: none; border-radius: 20px;
-      background: var(--accent); color: white; cursor: pointer; transition: 0.3s;
+    .marks-btn {
+      margin-top: 1rem; padding: 10px 20px; border: none; border-radius: 20px;
+      background: var(--primary); color: #fff; font-weight: 600; cursor: pointer;
+      transition: 0.3s;
     }
-    .toggle-btn:hover { background: var(--primary); }
+    .marks-btn:hover { background: var(--accent); }
+    .marks { display: none; margin-top: 10px; font-size: 0.95rem; color: var(--success); }
 
     .skills-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -212,7 +221,7 @@
     <div class="hero-content">
       <img src="images/saurabh.jpg" alt="Saurabh Pawar" class="profile-photo">
       <h1>👋 Hi, I'm Saurabh</h1>
-      <div class="typing-text" id="typing-text">DevOps Engineer | Cloud Enthusiast | IoT Developer</div>
+      <div class="typing-text" id="role-text"></div>
       <div class="btn-group">
         <a href="#about" class="btn btn-primary"><i class="fas fa-user"></i> Explore My Journey</a>
         <a href="resume/Saurabh__Pawar.pdf" class="btn btn-secondary" download><i class="fas fa-download"></i> Download Resume</a>
@@ -238,22 +247,22 @@
         <h3><i class="fas fa-graduation-cap"></i> B.Tech (Electronics & Telecommunication)</h3>
         <p>AISSMS IOIT, Pune</p>
         <span class="year">2022 – Present</span>
-        <button class="toggle-btn" onclick="toggleMarks('btech')">Show Marks</button>
-        <div id="btech" class="marks">Upto 6th Sem: 67.70% / 7.70 GPA</div>
+        <button class="marks-btn" onclick="toggleMarks('marks1')">Show Percentage</button>
+        <div id="marks1" class="marks">Till 6th Sem: 67.70% / 7.70 GPA</div>
       </div>
       <div class="edu-card">
         <h3><i class="fas fa-university"></i> Higher Secondary (12th)</h3>
         <p>Chh. Shahu Academy, Satara</p>
         <span class="year">2020 – 2022</span>
-        <button class="toggle-btn" onclick="toggleMarks('hsc')">Show Marks</button>
-        <div id="hsc" class="marks">82.83%</div>
+        <button class="marks-btn" onclick="toggleMarks('marks2')">Show Percentage</button>
+        <div id="marks2" class="marks">82.83%</div>
       </div>
       <div class="edu-card">
         <h3><i class="fas fa-school"></i> Secondary (10th)</h3>
         <p>Sadhana Vidyalaya, Satara</p>
         <span class="year">2020</span>
-        <button class="toggle-btn" onclick="toggleMarks('ssc')">Show Marks</button>
-        <div id="ssc" class="marks">87.20% </div>
+        <button class="marks-btn" onclick="toggleMarks('marks3')">Show Percentage</button>
+        <div id="marks3" class="marks">87.20%</div>
       </div>
     </div>
   </section>
@@ -356,14 +365,28 @@
       document.getElementById(id).style.display = "none";
     }
 
+    // Show/hide marks
     function toggleMarks(id) {
       const el = document.getElementById(id);
-      if (el.style.display === "block") {
-        el.style.display = "none";
-      } else {
-        el.style.display = "block";
-      }
+      el.style.display = (el.style.display === "block") ? "none" : "block";
     }
+
+    // Fade-in/out role animation
+    const roles = ["DevOps Engineer", "Cloud Enthusiast", "IoT Developer"];
+    let roleIndex = 0;
+    const roleText = document.getElementById("role-text");
+
+    function changeRole() {
+      roleText.style.opacity = 0;
+      setTimeout(() => {
+        roleText.textContent = roles[roleIndex];
+        roleText.style.opacity = 1;
+        roleIndex = (roleIndex + 1) % roles.length;
+      }, 1000);
+    }
+
+    setInterval(changeRole, 3000);
+    changeRole();
   </script>
 </body>
 </html>
