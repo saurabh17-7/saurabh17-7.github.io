@@ -85,7 +85,24 @@
     @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
 
     .hero h1 { font-size: 3.2rem; margin-bottom: 1rem; font-weight: 800; }
-    .typing-text { font-size: 1.5rem; margin-bottom: 2rem; color: var(--accent); }
+
+    /* Typing animation */
+    .typing-text { 
+      font-size: 1.5rem; margin-bottom: 2rem; 
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .cursor {
+      display: inline-block;
+      background-color: var(--accent);
+      width: 2px;
+      margin-left: 2px;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
 
     .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn {
@@ -144,31 +161,10 @@
     }
     .project-card {
       background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 15px;
-      transition: 0.3s; cursor: pointer;
+      transition: 0.3s;
     }
     .project-card:hover { transform: translateY(-10px); }
     .project-card h3 { color: var(--accent); margin-bottom: 1rem; }
-
-    /* Modal Styles */
-    .modal {
-      display: none; position: fixed; z-index: 2000; 
-      padding-top: 80px; left: 0; top: 0; width: 100%; height: 100%; 
-      background: rgba(0,0,0,0.9); text-align: center;
-    }
-    .modal img {
-      max-width: 80%; max-height: 80%; border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
-      animation: fadeIn 0.4s ease-in-out;
-    }
-    .close {
-      position: absolute; top: 20px; right: 35px;
-      color: #fff; font-size: 40px; font-weight: bold;
-      cursor: pointer;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: scale(0.9);}
-      to {opacity: 1; transform: scale(1);}
-    }
 
     /* Contact */
     .contact-grid {
@@ -205,10 +201,10 @@
     <div class="hero-content">
       <img src="images/saurabh.jpg" alt="Saurabh Pawar" class="profile-photo">
       <h1>👋 Hi, I'm Saurabh</h1>
-      <div class="typing-text" id="typing-text">DevOps Engineer | Cloud Enthusiast</div>
+      <div class="typing-text"><span id="typing"></span><span class="cursor">|</span></div>
       <div class="btn-group">
         <a href="#about" class="btn btn-primary"><i class="fas fa-user"></i> Explore My Journey</a>
-        <a href="resume/Saurabh__Pawar.pdf" class="btn btn-secondary" download><i class="fas fa-download"></i> Download Resume</a>
+        <a href="resume/Saurabh_Pawar.pdf" class="btn btn-secondary" download><i class="fas fa-download"></i> Download Resume</a>
       </div>
     </div>
   </section>
@@ -266,46 +262,12 @@
   <section class="projects" id="projects">
     <h2 class="section-title">Projects</h2>
     <div class="projects-grid">
-      <div class="project-card" onclick="openModal('expenseModal')">
-        <h3>💰 Serverless Expense Tracker</h3>
-        <p>Built with AWS services including API Gateway, Cognito, Lambda, DynamoDB, and SNS for real-time expense tracking and notifications.</p>
-      </div>
-      <div class="project-card" onclick="openModal('notebookModal')">
-        <h3>📒 Personal Notebook</h3>
-        <p>Full-stack app deployed using Jenkins CI/CD pipeline, Docker, and AWS EC2 for scalable hosting.</p>
-      </div>
-      <div class="project-card" onclick="openModal('iotModal')">
-        <h3>🏠 IoT Home Automation</h3>
-        <p>Smart home automation system using Arduino, ESP32, and PIC microcontrollers for intelligent device control.</p>
-      </div>
-      <div class="project-card" onclick="openModal('gasModal')">
-        <h3>🔥 Flammable Gas Detection</h3>
-        <p>Developed a safety system using PIC18F4550 microcontroller and integrated GSM module to send SMS alerts for hazards.</p>
-      </div>
+      <div class="project-card"><h3>💰 Serverless Expense Tracker</h3><p>Built with AWS services including API Gateway, Cognito, Lambda, DynamoDB, and SNS for real-time expense tracking and notifications.</p></div>
+      <div class="project-card"><h3>📒 Personal Notebook</h3><p>Full-stack app deployed using Jenkins CI/CD pipeline, Docker, and AWS EC2 for scalable hosting.</p></div>
+      <div class="project-card"><h3>🏠 IoT Home Automation</h3><p>Smart home automation system using Arduino, ESP32, and PIC microcontrollers for intelligent device control.</p></div>
+      <div class="project-card"><h3>🔥 Flammable Gas Detection</h3><p>Developed a safety system using PIC18F4550 microcontroller and integrated GSM module to send SMS alerts for hazards.</p></div>
     </div>
   </section>
-
-  <!-- Project Modals -->
-  <div id="expenseModal" class="modal">
-    <span class="close" onclick="closeModal('expenseModal')">&times;</span>
-    <img class="modal-content" src="images/expense-dashboard.jpg" alt="Expense Tracker Dashboard">
-  </div>
-
-  <div id="notebookModal" class="modal">
-    <span class="close" onclick="closeModal('notebookModal')">&times;</span>
-    <img class="modal-content" src="images/notebook-dashboard.jpg" alt="Notebook Dashboard">
-  </div>
-
-  <div id="iotModal" class="modal">
-    <span class="close" onclick="closeModal('iotModal')">&times;</span>
-    <img class="modal-content" src="images/iot-dashboard.jpg" alt="IoT Home Automation">
-  </div>
-
-  <div id="gasModal" class="modal">
-    <span class="close" onclick="closeModal('gasModal')">&times;</span>
-    <img class="modal-content" src="images/gas-dashboard.jpg" alt="Flammable Gas Detection System">
-  </div>
-
   <div class="section-divider"></div>
 
   <!-- Contact -->
@@ -324,13 +286,33 @@
     <p>© 2025 Saurabh Rajesh Pawar </p>
   </footer>
 
+  <!-- Typing Script -->
   <script>
-    function openModal(id) {
-      document.getElementById(id).style.display = "block";
+    const roles = ["DevOps Engineer", "Cloud Enthusiast"];
+    let i = 0, j = 0, currentRole = "", isDeleting = false;
+
+    function type() {
+      currentRole = roles[i];
+      if (!isDeleting) {
+        document.getElementById("typing").textContent = currentRole.substring(0, j + 1);
+        j++;
+        if (j === currentRole.length) {
+          isDeleting = true;
+          setTimeout(type, 1500); // pause before deleting
+          return;
+        }
+      } else {
+        document.getElementById("typing").textContent = currentRole.substring(0, j - 1);
+        j--;
+        if (j === 0) {
+          isDeleting = false;
+          i = (i + 1) % roles.length; // move to next role
+        }
+      }
+      setTimeout(type, isDeleting ? 80 : 150);
     }
-    function closeModal(id) {
-      document.getElementById(id).style.display = "none";
-    }
+
+    document.addEventListener("DOMContentLoaded", type);
   </script>
 </body>
 </html>
