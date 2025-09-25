@@ -20,7 +20,6 @@
       --dark: #0f172a;
       --darker: #020617;
       --light: #f8fafc;
-      --glass: rgba(255, 255, 255, 0.1);
       --glass-border: rgba(255, 255, 255, 0.2);
     }
 
@@ -35,13 +34,23 @@
       position: relative;
     }
 
+    /* Overlay for readability */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.85);
+      background: rgba(15, 23, 42, 0.88);
       z-index: -1;
+    }
+
+    /* Section underline */
+    .section-divider {
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      margin: 40px auto;
+      border-radius: 2px;
     }
 
     /* Navbar */
@@ -50,105 +59,116 @@
       background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(25px);
       border-radius: 50px; padding: 12px 35px; z-index: 1000;
       border: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
     }
     .nav-links { display: flex; gap: 5px; list-style: none; }
     .nav-links a { 
       color: var(--light); text-decoration: none; 
       padding: 10px 18px; border-radius: 25px; 
       transition: all 0.3s ease; font-weight: 500;
+      position: relative; overflow: hidden;
     }
-    .nav-links a:hover { color: white; transform: translateY(-2px); }
+    .nav-links a:hover { color: white; background: var(--primary); }
 
     /* Hero */
     .hero {
       height: 100vh; display: flex; justify-content: center; align-items: center; 
-      text-align: center; background: rgba(0,0,0,0.4);
+      text-align: center; position: relative;
     }
+    .hero-content { position: relative; z-index: 2; }
     .profile-photo {
-      width: 220px; height: 220px; border-radius: 50%; object-fit: cover;
-      border: 5px solid rgba(255,255,255,0.2); margin-bottom: 2rem;
+      width: 200px; height: 200px; border-radius: 50%; object-fit: cover;
+      border: 4px solid rgba(255,255,255,0.2); margin-bottom: 2rem;
+      animation: float 6s ease-in-out infinite; 
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
     }
-    .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; }
-    .typing-text { font-size: 1.8rem; margin-bottom: 3rem; }
+    @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
 
-    /* Buttons */
-    .btn-group { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .hero h1 { font-size: 3.2rem; margin-bottom: 1rem; font-weight: 800; }
+    .typing-text { font-size: 1.5rem; margin-bottom: 2rem; color: var(--accent); }
+
+    .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn {
-      padding: 15px 30px; border-radius: 50px; font-size: 1.1rem; font-weight: 600;
-      display: inline-flex; align-items: center; gap: 12px;
-      text-decoration: none; transition: all 0.3s ease;
+      padding: 15px 30px; border-radius: 50px; font-weight: 600;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
+      transition: 0.3s ease;
     }
-    .btn-primary { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: white; }
-    .btn-secondary { border: 2px solid rgba(255,255,255,0.3); color: white; }
+    .btn-primary { background: linear-gradient(45deg, var(--primary), var(--secondary)); color: #fff; }
+    .btn-primary:hover { transform: translateY(-5px); }
+    .btn-secondary { border: 2px solid white; color: white; }
+    .btn-secondary:hover { background: white; color: var(--dark); }
 
-    /* Sections */
-    section { min-height: 100vh; padding: 120px 5% 80px; }
+    /* Section Styles */
+    section { min-height: 100vh; padding: 100px 5% 60px; }
     .section-title {
-      font-size: 3rem; font-weight: 900; text-align: center; margin-bottom: 3rem;
-    }
-    .section-divider {
-      width: 100px; height: 3px; margin: 20px auto; 
-      background: linear-gradient(45deg, var(--primary), var(--accent)); 
-      border-radius: 2px;
+      font-size: 3rem; text-align: center; margin-bottom: 2rem;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
 
     /* About */
     .about-content {
-      max-width: 800px; margin: 0 auto; padding: 2rem; 
-      text-align: center; background: rgba(255,255,255,0.05); 
-      border-radius: 20px;
+      max-width: 800px; margin: auto; background: rgba(255,255,255,0.05);
+      padding: 2rem; border-radius: 20px; text-align: center;
     }
 
     /* Education */
     .education-timeline {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem; margin-top: 3rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem; margin-top: 2rem;
     }
     .edu-card {
-      background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 20px;
-      text-align: center;
+      background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 15px;
+      text-align: center; transition: transform 0.3s;
     }
-    .edu-card h3 { margin-bottom: 1rem; color: var(--accent); }
+    .edu-card:hover { transform: translateY(-10px); }
+    .edu-card h3 { color: var(--accent); margin-bottom: 0.5rem; }
+    .year { font-size: 0.9rem; color: var(--warning); font-weight: bold; }
 
     /* Skills */
-    .skills-grid { 
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
-      gap: 2rem; margin-top: 3rem; 
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem; margin-top: 2rem;
     }
     .skill-card {
-      background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 20px; 
-      text-align: center;
+      background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 15px;
+      text-align: center; transition: 0.3s;
     }
-    .skill-icon { font-size: 3rem; margin-bottom: 1rem; }
-    .skills-grid .skill-card:last-child {
-      justify-self: center; /* ✅ only IoT centered */
-    }
+    .skill-card:hover { transform: scale(1.1); }
+    .skill-icon { font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--primary); }
 
     /* Projects */
     .projects-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-      gap: 2rem; margin-top: 3rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem; margin-top: 2rem;
     }
     .project-card {
-      background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 20px;
-      text-align: center;
+      background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 15px;
+      transition: 0.3s;
     }
-    .project-card h3 { margin-bottom: 1rem; }
+    .project-card:hover { transform: translateY(-10px); }
+    .project-card h3 { color: var(--accent); margin-bottom: 1rem; }
 
     /* Contact */
     .contact-grid {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 3rem;
+      display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;
+      margin-top: 2rem;
     }
     .contact-card {
-      background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 20px; text-align: center;
+      background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 15px;
+      flex: 1 1 250px; text-align: center;
+      transition: 0.3s;
     }
+    .contact-card:hover { transform: scale(1.05); }
+    .contact-icon { font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent); }
+    .contact-card a { color: white; text-decoration: none; }
 
-    footer { padding: 2rem; text-align: center; font-size: 0.9rem; opacity: 0.8; }
+    footer { padding: 1.5rem; text-align: center; font-size: 0.9rem; opacity: 0.7; }
   </style>
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar" id="navbar">
+  <nav class="navbar">
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
@@ -164,7 +184,7 @@
     <div class="hero-content">
       <img src="images/saurabh.jpg" alt="Saurabh Pawar" class="profile-photo">
       <h1>👋 Hi, I'm Saurabh</h1>
-      <div class="typing-text" id="typing-text"></div>
+      <div class="typing-text" id="typing-text">DevOps Engineer | Cloud Enthusiast</div>
       <div class="btn-group">
         <a href="#about" class="btn btn-primary"><i class="fas fa-user"></i> Explore My Journey</a>
         <a href="resume/Saurabh_Pawar.pdf" class="btn btn-secondary" download><i class="fas fa-download"></i> Download Resume</a>
@@ -177,11 +197,7 @@
   <section class="about" id="about">
     <h2 class="section-title">About Me</h2>
     <div class="about-content">
-      <p>
-        I am a final-year Electronics & Telecommunication Engineering student at AISSMS IOIT, Pune.  
-        Passionate about DevOps, cloud computing, and automation. Skilled in AWS, Docker, Jenkins, GitHub, and CI/CD pipelines.  
-        I enjoy solving infrastructure challenges and continuously learning new technologies to build scalable solutions.
-      </p>
+      <p>I am a final-year Electronics & Telecommunication Engineering student at AISSMS IOIT, Pune. Passionate about DevOps, cloud computing, and automation. Skilled in AWS, Docker, Jenkins, GitHub, and CI/CD pipelines. I enjoy solving infrastructure challenges and continuously learning new technologies to build scalable solutions.</p>
     </div>
   </section>
   <div class="section-divider"></div>
@@ -191,8 +207,8 @@
     <h2 class="section-title">Education</h2>
     <div class="education-timeline">
       <div class="edu-card">
-        <h3><i class="fas fa-graduation-cap"></i> B.Tech in Electronics & Telecommunication</h3>
-        <p>AISSMS Institute of Information Technology, Pune</p>
+        <h3><i class="fas fa-graduation-cap"></i> B.Tech (Electronics & Telecommunication)</h3>
+        <p>AISSMS IOIT, Pune</p>
         <span class="year">2022 – Present</span>
       </div>
       <div class="edu-card">
@@ -201,7 +217,7 @@
         <span class="year">2020 – 2022</span>
       </div>
       <div class="edu-card">
-        <h3><i class="fas fa-school"></i> Secondary School (10th)</h3>
+        <h3><i class="fas fa-school"></i> Secondary (10th)</h3>
         <p>Sadhana Vidyalaya, Satara</p>
         <span class="year">2020</span>
       </div>
@@ -229,22 +245,9 @@
   <section class="projects" id="projects">
     <h2 class="section-title">Projects</h2>
     <div class="projects-grid">
-      <div class="project-card">
-        <h3>💰 Serverless Expense Tracker</h3>
-        <p>Built with AWS services including API Gateway, Cognito, Lambda, DynamoDB, and SNS for real-time expense tracking and notifications.</p>
-      </div>
-      <div class="project-card">
-        <h3>📒 Personal Notebook</h3>
-        <p>Full-stack application deployed using Jenkins CI/CD pipeline, Docker containerization, and AWS EC2 for scalable cloud hosting.</p>
-      </div>
-      <div class="project-card">
-        <h3>🏠 IoT Home Automation</h3>
-        <p>Smart home automation system using Arduino, ESP32, and PIC microcontrollers for intelligent device control and monitoring.</p>
-      </div>
-      <div class="project-card">
-        <h3>🔥 Flammable Gas Detection</h3>
-        <p>Developed a safety system using PIC18F4550 microcontroller and integrated GSM module to send SMS alerts for hazard detection.</p>
-      </div>
+      <div class="project-card"><h3>💰 Serverless Expense Tracker</h3><p>Built with AWS services including API Gateway, Cognito, Lambda, DynamoDB, and SNS for real-time expense tracking and notifications.</p></div>
+      <div class="project-card"><h3>📒 Personal Notebook</h3><p>Full-stack app deployed using Jenkins CI/CD pipeline, Docker, and AWS EC2 for scalable hosting.</p></div>
+      <div class="project-card"><h3>🏠 IoT Home Automation</h3><p>Smart home automation system using Arduino, ESP32, and PIC microcontrollers for intelligent device control.</p></div>
     </div>
   </section>
   <div class="section-divider"></div>
@@ -253,12 +256,14 @@
   <section class="contact" id="contact">
     <h2 class="section-title">Let's Connect</h2>
     <div class="contact-grid">
-      <div class="contact-card"><i class="fas fa-envelope"></i><p><a href="mailto:saurabhrpstr@gmail.com">saurabhrpstr@gmail.com</a></p></div>
-      <div class="contact-card"><i class="fab fa-github"></i><p><a href="https://github.com/saurabh17-7" target="_blank">github.com/saurabh17-7</a></p></div>
-      <div class="contact-card"><i class="fab fa-linkedin"></i><p><a href="http://www.linkedin.com/in/saurabhpawar2004" target="_blank">linkedin.com/in/saurabhpawar2004</a></p></div>
+      <div class="contact-card"><div class="contact-icon"><i class="fas fa-envelope"></i></div><a href="mailto:saurabhrpstr@gmail.com">saurabhrpstr@gmail.com</a></div>
+      <div class="contact-card"><div class="contact-icon"><i class="fab fa-github"></i></div><a href="https://github.com/saurabh17-7" target="_blank">github.com/saurabh17-7</a></div>
+      <div class="contact-card"><div class="contact-icon"><i class="fab fa-linkedin"></i></div><a href="http://www.linkedin.com/in/saurabhpawar2004" target="_blank">linkedin.com/in/saurabhpawar2004</a></div>
     </div>
   </section>
+  <div class="section-divider"></div>
 
+  <!-- Footer -->
   <footer>
     <p>© 2025 Saurabh Rajesh Pawar </p>
   </footer>
