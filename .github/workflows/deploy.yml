@@ -1,0 +1,28 @@
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main   # runs when you push to main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get your code
+        uses: actions/checkout@v4
+
+      - name: Upload website to GitHub Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: .   # means upload everything in your repo
+
+  deploy:
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      contents: write
+    steps:
+      - name: Publish website
+        uses: actions/deploy-pages@v1
